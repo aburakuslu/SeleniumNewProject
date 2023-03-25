@@ -12,23 +12,26 @@ import java.util.List;
 
 public class C03_WebelementLocators {
     public static void main(String[] args) {
-        System.setProperty("chromeDriver","src/resources/driver/chromedriver");
+        System.setProperty("chromeDriver", "src/resources/driver/chromedriver.exe");
         WebDriver driver = new ChromeDriver(new ChromeOptions().addArguments("--remote-allow-origins=*"));
         driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(15));
+
         //web sayfasına gidin. https://www.amazon.com/
-        driver.get("https://www.amazon.com");
+        driver.get("https://amazon.com");
+
         //Search(ara) “city bike”
         WebElement aramaKutusu = driver.findElement(By.id("twotabsearchtextbox"));
         aramaKutusu.sendKeys("city bike", Keys.ENTER);
 
         //Amazon'da görüntülenen ilgili sonuçların sayısını yazdırın
         List<WebElement> sonucYazisi = driver.findElements(By.className("sg-col-inner"));
-        System.out.println("Sonuc Yazisi: " + sonucYazisi.get(0).getText());
+        System.out.println("Sonuc Yazısı : " + sonucYazisi.get(0).getText());
 
-        //Sadece sonuc sayisini yazdiralim
-        String [] sonucSayisi = sonucYazisi.get(0).getText().split(" ");//Sonuc yazisini bosluklardan bolduk
-        System.out.println("sonucSayisi = " + sonucSayisi[2]);
+        //Sadece sonuc sayısını yazdıralım
+        String[] sonucSayisi = sonucYazisi.get(0).getText().split(" ");//Sonuc yazısını boşluklardan boldum
+        System.out.println("SonucSayisi = " + sonucSayisi[2]);
+
         //Sonra karşınıza çıkan ilk sonucun resmine tıklayın.
         List<WebElement> sonuclar = driver.findElements(By.className("s-image"));
         sonuclar.get(0).click();
